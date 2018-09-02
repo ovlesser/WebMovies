@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -121,7 +122,10 @@ public class MovieBrowserActivity extends FragmentActivity {
                     JSONArray jsonArray = null;
                     try {
                         jsonArray = new JSONArray(movies);
-                        context.findViewById(R.id.tips).setVisibility(View.INVISIBLE);
+                        TextView tipsView = context.findViewById(R.id.tips);
+                        if (tipsView != null) {
+                            tipsView.setVisibility(View.INVISIBLE);
+                        }
                         if (context.mBrowserFragment != null) {
                             context.mBrowserFragment.update(jsonArray);
                         }

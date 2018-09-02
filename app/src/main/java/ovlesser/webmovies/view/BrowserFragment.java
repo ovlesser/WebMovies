@@ -53,7 +53,7 @@ public class BrowserFragment extends Fragment {
 
         mBrowserAdapter = new BrowserAdapter(jsonArray);
         mBrowserAdapter.getFilter().filter(mGenre);
-        mGenreAdapter =  new ArrayAdapter<String>(getActivity(), android.R.layout.simple_expandable_list_item_1, getGenreList(jsonArray));
+        mGenreAdapter =  new ArrayAdapter<String>(getContext(), android.R.layout.simple_expandable_list_item_1, getGenreList(jsonArray));
     }
 
     @Override
@@ -96,14 +96,16 @@ public class BrowserFragment extends Fragment {
         if (jsonArray != null) {
             mBrowserAdapter.update(jsonArray);
             mBrowserAdapter.getFilter().filter(mGenre);
-            mGenreAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_expandable_list_item_1, getGenreList(jsonArray));
+            if (getContext() != null) {
+                mGenreAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_expandable_list_item_1, getGenreList(jsonArray));
+            }
         }
     }
 
     private List<String> getGenreList(JSONArray jsonArray) {
         List<String> genres = new ArrayList<>();
+        genres.add("All Genres");
         if (jsonArray != null) {
-            genres.add("All Genres");
             for (int i = 0; i < jsonArray.length(); i++) {
                 String genre = null;
                 try {

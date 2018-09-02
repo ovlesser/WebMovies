@@ -10,6 +10,8 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.MemoryPolicy;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -139,6 +141,7 @@ class BrowserAdapter extends RecyclerView.Adapter<BrowserAdapter.ItemHolder> imp
     @Override
     public void onBindViewHolder(final ItemHolder holder, int position) {
         final Item item = filteredItems.get(position);
+        holder.posterView.setImageResource(android.R.color.transparent);
         holder.posterView.post(new Runnable() {
             @Override
             public void run() {
@@ -146,6 +149,7 @@ class BrowserAdapter extends RecyclerView.Adapter<BrowserAdapter.ItemHolder> imp
                 if (requestedWidth > 0) {
                     Http.mPicasso
                             .load(item.getValue("Poster"))
+                            .memoryPolicy(MemoryPolicy.NO_CACHE)
                             .fit().centerInside()
                             .into(holder.posterView);
                 }
