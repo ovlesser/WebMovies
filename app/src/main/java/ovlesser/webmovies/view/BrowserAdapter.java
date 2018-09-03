@@ -1,7 +1,9 @@
 package ovlesser.webmovies.view;
 
+import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -128,6 +130,7 @@ class BrowserAdapter extends RecyclerView.Adapter<BrowserAdapter.ItemHolder> imp
                 e.printStackTrace();
             }
         }
+        this.filteredItems = new ArrayList<>(this.items);
     }
 
     @Override
@@ -142,10 +145,12 @@ class BrowserAdapter extends RecyclerView.Adapter<BrowserAdapter.ItemHolder> imp
     public void onBindViewHolder(final ItemHolder holder, int position) {
         final Item item = filteredItems.get(position);
         holder.posterView.setImageResource(android.R.color.transparent);
-        holder.posterView.post(new Runnable() {
+        Log.d(TAG, "onBindViewHolder: " + position);
+        new Handler().post(new Runnable() {
             @Override
             public void run() {
                 int requestedWidth = holder.posterView.getWidth();
+                Log.d(TAG, "onBindViewHolder.run: " + item.getValue("Poster"));
                 if (requestedWidth > 0) {
                     Http.mPicasso
                             .load(item.getValue("Poster"))

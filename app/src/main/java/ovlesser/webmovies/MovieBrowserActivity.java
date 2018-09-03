@@ -82,7 +82,9 @@ public class MovieBrowserActivity extends FragmentActivity {
 
     private void scheduleJob() {
         JobInfo.Builder builder = new JobInfo.Builder( mJobId++, mServiceComponent);
-        builder.setRequiredNetworkType( JobInfo.NETWORK_TYPE_ANY);
+        builder.setRequiredNetworkType( JobInfo.NETWORK_TYPE_ANY)
+                .setMinimumLatency(1)
+                .setOverrideDeadline(1);
         SharedPreferences prefs = getApplication().getSharedPreferences(MovieBrowserActivity.class.getSimpleName(), Context.MODE_PRIVATE);
         PersistableBundle extras = new PersistableBundle();
         builder.setExtras(extras);
@@ -114,6 +116,7 @@ public class MovieBrowserActivity extends FragmentActivity {
         }
 
         private void update(@Nullable Object obj, String action) {
+            Log.d(TAG, "update: ");
             MovieBrowserActivity context = (MovieBrowserActivity) mContext.get();
             SharedPreferences prefs =  context.getSharedPreferences(MovieBrowserActivity.class.getSimpleName(), Context.MODE_PRIVATE);
             switch ( action) {

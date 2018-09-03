@@ -1,5 +1,6 @@
 package ovlesser.webmovies.view;
 
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -114,7 +115,7 @@ public class OtherMovieAdapter extends RecyclerView.Adapter<OtherMovieAdapter.It
     @Override
     public void onBindViewHolder(final OtherMovieAdapter.ItemHolder holder, int position) {
         final Item item = filteredItems.get(position);
-        holder.posterView.post(new Runnable() {
+        new Handler().post(new Runnable() {
             @Override
             public void run() {
                 int requestedWidth = holder.posterView.getWidth();

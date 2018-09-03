@@ -57,8 +57,8 @@ public class Http {
         final CookieManager cookieManager = new CookieManager();
         cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
         final OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder()
-                .connectTimeout(10, TimeUnit.SECONDS)
-                .readTimeout(10, TimeUnit.SECONDS)
+//                .connectTimeout(10, TimeUnit.SECONDS)
+//                .readTimeout(10, TimeUnit.SECONDS)
                 .cookieJar(new JavaNetCookieJar(cookieManager))
                 .retryOnConnectionFailure(true);
 

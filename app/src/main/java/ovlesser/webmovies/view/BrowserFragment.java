@@ -95,9 +95,14 @@ public class BrowserFragment extends Fragment {
     public void update(JSONArray jsonArray) {
         if (jsonArray != null) {
             mBrowserAdapter.update(jsonArray);
+            mBrowserAdapter.notifyDataSetChanged();
             mBrowserAdapter.getFilter().filter(mGenre);
             if (getContext() != null) {
-                mGenreAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_expandable_list_item_1, getGenreList(jsonArray));
+                mGenreAdapter.clear();
+                for (String genre : getGenreList(jsonArray)) {
+                    mGenreAdapter.insert(genre, mGenreAdapter.getCount());
+                }
+                mGenreAdapter.notifyDataSetChanged();
             }
         }
     }
